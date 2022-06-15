@@ -1,0 +1,94 @@
+<html>
+	<head>
+		<script type = "text/javascript">
+			//var flag = false;
+
+			var order = new Array();
+			var temp = 1;
+			var imgsource1 = new Array("01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg", "06.jpg", "07.jpg",
+			"08.jpg", "09.jpg", "10.jpg", "11.jpg", "12.jpg", "13.jpg", "14.jpg", "15.jpg", "blank.jpg");
+
+			var blank = 0;
+
+			function start( )
+			{
+				for(a = 0; a < 16; a++)
+				{
+					order[a] = Math.round(Math.random()*15);
+					for(b = 0; b < a; b++)
+					{
+						if(order[a] == order[b])
+						{
+							a--;
+						}
+					}
+				}
+
+				mix();
+			}
+
+			function mix()
+			{
+				for(i = 0; i < 16; i++)
+				{
+					document.images[i].src = imgsource1[order[i]];
+					if(order[i] == 15)
+					{
+						blank = i;
+					}
+				}
+			}
+
+			function move(k)
+			{
+				var direction = Math.abs(blank - (k))
+				var clicked_img = k;
+				var blue = "blank.jpg";
+				var original = document.images[k].src;
+
+				if(direction == 4 || direction == 1)
+				{
+					document.images[k].src = blue;
+					document.images[blank].src = original;
+
+					blank = k;
+				}
+				else
+				{
+					alert("대각선으로 이동할 수 없습니다.");
+				}
+			}
+
+			function bingo()
+			{
+				for(i = 0; i < 16; i++)
+				{
+					document.images[i].src = imgsource1[i];
+					alert("성공!");
+				}
+			}
+
+		</script>
+
+	</head>
+
+	<body>
+		<form>
+			<font size = 7 color = green> <b> 퍼즐 게임 </b> </font>
+			<input id = "btn_name" type = "button" value = " 시&nbsp;&nbsp;&nbsp;작 "
+			onClick = "start( )" style = "font-size:24pt; font-style:bold;"> <p>
+		</form>
+
+		<script type = "text/javascript">
+		imgsource = new Array ("01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg", "06.jpg", "07.jpg",
+			"08.jpg", "09.jpg", "10.jpg", "11.jpg", "12.jpg", "13.jpg", "14.jpg", "15.jpg", "blank.jpg");
+
+			for(i = 0; i < 16; i++ )
+			{
+				document.write("<img src = " + imgsource[i] + " id = 'img' border = 1 onClick = 'move(" + i +")'>");
+				if (((i + 1)%4 )==0) document.write("<br>");
+			}
+		</script>
+	</body>
+
+</html>
